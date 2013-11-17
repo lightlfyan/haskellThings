@@ -3,9 +3,11 @@ module Main(f, main) where
 -- play
 
 f :: Int -> [String] -> Int
-f a (op:"(":rest) = f a (op:(show (f1 rest)):[])
-f a (")":rest) = a
+f a (op:"(":rest) = let h = takeWhile (/=")") rest
+                        (_:t) = dropWhile (/=")") rest
+                     in f a $ op:(show $ f1 h):t
 f a ("+":b:"*":rest) = a + (f (read b) ("*":rest))
+f a ("-":b:"*":rest) = a - (f (read b) ("*":rest))
 f a ("+":b:rest) = f (a + read b) rest
 f a ("*":b:rest) = f (a * read b) rest
 f a [] = a

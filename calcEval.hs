@@ -1,6 +1,7 @@
 module Main(f, main) where
 
 -- play
+-- f1 ["10", "+", "(", "3", "+", "4", ")", "*", "2"]
 
 f :: Int -> [String] -> Int
 f a (op:"(":rest) = let h = takeWhile (/=")") rest
